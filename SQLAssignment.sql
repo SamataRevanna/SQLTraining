@@ -140,5 +140,4 @@ INTO Student_Marks VALUES ('1B005','BA0101',1,59,'Y')
 INTO Student_Marks VALUES ('1B005','BA0102',1,65,'Y')
 SELECT * FROM DUAL;
 
-
 select * from dba_objects o where o.object_name in (upper('Student'), upper('Student_Marks'));
