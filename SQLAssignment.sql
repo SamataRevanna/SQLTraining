@@ -140,4 +140,41 @@ INTO Student_Marks VALUES ('1B005','BA0101',1,59,'Y')
 INTO Student_Marks VALUES ('1B005','BA0102',1,65,'Y')
 SELECT * FROM DUAL;
 
+BEGIN
+    INSERT INTO Subject VALUES ('CS00107','Operating Systems');
+    INSERT INTO Subject VALUES ('CS00108','OO Modeling and Design');
+END;
+
+DECLARE
+    mySubjectID Subject.SubjectID%TYPE :='AC00105';
+    mySubjectID2 Subject.SubjectID%TYPE;
+BEGIN
+     mySubjectID2 := 'AC00106';
+    --SELECT AC00105 INTO mySubjectID FROM DUAL;
+    --SELECT AC00106 INTO mySubjectID2 FROM DUAL;
+    INSERT INTO Subject(SubjectID, SubjectName) VALUES (mySubjectID,'Management Accounting');
+    INSERT INTO Subject(SubjectID, SubjectName) VALUES (mySubjectID2,'Integrated Accounting Systems');
+COMMIT;
+END;
+/
+    
+DECLARE    
+    CURSOR CStudent IS SELECT * FROM Student;
+    stuid Student.StudentID%TYPE;
+    stuname Student.StudentName%TYPE;
+    studob Student.StudentDOB%TYPE;
+    stuage Student.StudentAGE%TYPE;
+    stucontact Student.ContactNumber%TYPE;
+    stuemailid Student.EmailID%TYPE;
+BEGIN
+    OPEN CStudent;
+    LOOP
+        FETCH CStudent INTO stuid, stuname, studob, stuage, stucontact, stuemailid;
+        EXIT WHEN CStudent%NOTFOUND;
+        DBMS_OUTPUT.PUT_LINE(stuid||' '||stuname||' '||studob||' '||stuage||' '||stucontact||' '||stuemailid);
+    END LOOP;
+    CLOSE CStudent;
+END;
+/
+
 select * from dba_objects o where o.object_name in (upper('Student'), upper('Student_Marks'));
